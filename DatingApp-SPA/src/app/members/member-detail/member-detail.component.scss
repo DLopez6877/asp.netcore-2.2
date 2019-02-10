@@ -1,0 +1,17 @@
+.img-thumbnail {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.card-body {
+    padding: 0 25px;
+    p {
+        margin-bottom: .5rem;
+    }
+}
+
+.card-footer {
+    background-color: white;
+    border-top: none;
+}
