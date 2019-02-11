@@ -2,6 +2,10 @@
     min-width: 110px;
 }
 
-.img-thumbnail {
-    margin-bottom: 2px;
+.nv-file-over {
+    border: dotted 3px crimson;
+}
+
+input[type=file] {
+    color: transparent;
 }
