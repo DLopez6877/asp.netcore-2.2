@@ -8,9 +8,9 @@
   <div class="col text-center">
     <div class="btn-group mb-4">
       <button type="button" name="orderBy" btnRadio="lastActive" [(ngModel)]="userParams.orderBy"
-        (click)="loadUsers()" class="btn btn-primary">Last Active</button>
+        (click)="loadUsers()" class="btn" [ngClass]="userParams.orderBy == 'lastActive' ? 'btn-primary' : 'btn-outline-primary'">Last Active</button>
       <button type="button" name="orderBy" btnRadio="created" [(ngModel)]="userParams.orderBy" (click)="loadUsers()"
-        class="btn btn-primary">Newest Members</button>
+        class="btn" [ngClass]="userParams.orderBy == 'created' ? 'btn-primary' : 'btn-outline-primary'">Newest Members</button>
     </div>
   </div>
 
