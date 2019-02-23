@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { PaginatedResult } from '../models/pagination';
 import { map } from 'rxjs/operators';
+import { Message } from '../models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,6 @@ export class UserService {
       params = params.append('orderBy', userParams.orderBy);
     }
 
-    console.log(likesParam);
     if (likesParam === 'likers') {
       params = params.append('likers', 'true');
     }
@@ -69,5 +69,29 @@ export class UserService {
 
   sendLike(id: number, recepientId: number) {
     return this.http.post(`${this.baseUrl}users/${id}/like/${recepientId}`, {});
+  }
+
+  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+
+    let params = new HttpParams();
+
+    params = params.append('MessageContainer', messageContainer);
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page.toString());
+      params = params.append('pageSize', itemsPerPage.toString());
+    }
+
+    return this.http.get<Message[]>(`${this.baseUrl}users/${id}/messages`, {observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') !== null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 }
