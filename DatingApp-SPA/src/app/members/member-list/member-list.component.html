@@ -5,17 +5,17 @@
 <div class="container mt-3">
 
   <!-- Order controls -->
-  <div class="col text-center">
+  <div class="row justify-content-center">
     <div class="btn-group mb-4">
       <button type="button" name="orderBy" btnRadio="lastActive" [(ngModel)]="userParams.orderBy"
-        (click)="loadUsers()" class="btn" [ngClass]="userParams.orderBy == 'lastActive' ? 'btn-primary' : 'btn-outline-primary'">Last Active</button>
+        (click)="loadUsers()" class="btn" [ngClass]="userParams.orderBy === 'lastActive' ? 'btn-primary' : 'btn-outline-primary'">Last Active</button>
       <button type="button" name="orderBy" btnRadio="created" [(ngModel)]="userParams.orderBy" (click)="loadUsers()"
-        class="btn" [ngClass]="userParams.orderBy == 'created' ? 'btn-primary' : 'btn-outline-primary'">Newest Members</button>
+        class="btn" [ngClass]="userParams.orderBy === 'created' ? 'btn-primary' : 'btn-outline-primary'">Newest Members</button>
     </div>
   </div>
 
   <!-- Filters -->
-  <div class="row">
+  <div class="row justify-content-center">
     <form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
       <div class="form-group mr-3">
         <label for="minAge">Age From:</label>
@@ -46,15 +46,15 @@
 <br>
 
   <!-- Users -->
-  <div class="row">
-    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+  <div class="row justify-content-center">
+    <div *ngFor="let user of users" class="col-xl-2 col-md-3 col-sm-6">
       <app-member-card [user]="user"></app-member-card>
     </div>
   </div>
 </div>
 
 <!-- Pagination -->
-<div class="d-flex justify-content-center">
+<div class="row justify-content-center">
   <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
     [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
     firstText="&laquo;" lastText="&raquo;">
