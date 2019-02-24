@@ -73,7 +73,6 @@ export class UserService {
 
   getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string) {
     const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
-
     let params = new HttpParams();
 
     params = params.append('MessageContainer', messageContainer);
@@ -93,5 +92,9 @@ export class UserService {
           return paginatedResult;
         })
       );
+  }
+
+  getMessageThread(id: number, recipientId: number) {
+    return this.http.get<Message[]>(`${this.baseUrl}users/${id}/messages/thread/${recipientId}`);
   }
 }
