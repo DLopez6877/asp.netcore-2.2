@@ -21,6 +21,9 @@
 .card-body {
   overflow-y: scroll;
   height: 400px;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .card-footer {
