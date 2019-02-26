@@ -13,9 +13,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
-
   user: User;
   photoUrl: string;
+  // tslint:disable-next-line:max-line-length
+  themes = ['cerulean', 'cosmo', 'journal', 'litera', 'lumen', 'materia', 'minty', 'pulse', 'sandstone', 'simplex', 'sketchy', 'spacelab', 'united', 'yeti'];
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {

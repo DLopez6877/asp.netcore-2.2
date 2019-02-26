@@ -52,6 +52,12 @@
                             <label for="country">Country</label>
                             <input type="text" class="form-control" name="country" [(ngModel)]="user.country">
                         </div>
+                        <div class="form-group">
+                          <label>Theme</label>
+                            <select class="custom-select form-control" size="3" name="theme" [(ngModel)]="user.theme">
+                              <option *ngFor="let theme of themes" [value]="theme" [selected]="user.theme === theme">{{theme}}</option>
+                            </select>
+                        </div>
                     </form>
                 </tab>
                 <tab heading="Edit Photos">
