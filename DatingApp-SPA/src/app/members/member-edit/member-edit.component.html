@@ -48,13 +48,13 @@
                         <h4>Location Details:</h4>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" name="city" [(ngModel)]="user.city">
+                            <input type="text" class="form-control mb-3" name="city" [(ngModel)]="user.city">
                             <label for="country">Country</label>
                             <input type="text" class="form-control" name="country" [(ngModel)]="user.country">
                         </div>
                         <div class="form-group">
                           <label>Theme</label>
-                            <select class="custom-select form-control" size="3" name="theme" [(ngModel)]="user.theme">
+                            <select class="custom-select form-control" size="4" name="theme" [(ngModel)]="user.theme">
                               <option *ngFor="let theme of themes" [value]="theme" [selected]="user.theme === theme">{{theme}}</option>
                             </select>
                         </div>

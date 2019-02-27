@@ -26,6 +26,10 @@ export class NavComponent implements OnInit {
   }
 
   login() {
+    if (!this.model.valid) {
+      this.alertify.error('Username and password are required');
+      return;
+    }
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('logged in successfully');
       this.themeService.invokeThemeChange();

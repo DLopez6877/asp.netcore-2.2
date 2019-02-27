@@ -23,7 +23,7 @@ success(message: string) {
 }
 
 error(message: string) {
-  if (message.length > 100) {
+  if (!message || message.length > 100) {
     alertify.error('An error occurred');
   } else {
     alertify.error(message);

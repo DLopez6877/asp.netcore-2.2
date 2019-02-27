@@ -6,7 +6,6 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ThemeService } from 'src/app/services/theme.service';
-import { userInfo } from 'os';
 
 @Component({
   selector: 'app-member-edit',
