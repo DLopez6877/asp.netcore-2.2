@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,6 @@ import { Router } from '@angular/router';
 })
 
 export class NavComponent implements OnInit {
-  @Output() changeTheme = new EventEmitter<string>();
   model: any = {};
   photoUrl: string;
 
@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
       public authService: AuthService,
       private alertify: AlertifyService,
       private router: Router,
-      private elementRef: ElementRef
+      private themeService: ThemeService
     ) { }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('logged in successfully');
-      this.changeTheme.emit();
+      this.themeService.invokeThemeChange();
     }, error => {
       this.alertify.error(error);
     }, () => {
@@ -47,7 +47,7 @@ export class NavComponent implements OnInit {
     this.authService.currentUser = null;
     this.alertify.message('logged out');
     this.router.navigate(['/home']);
-    this.changeTheme.emit();
+    this.themeService.invokeThemeChange();
   }
 
 }

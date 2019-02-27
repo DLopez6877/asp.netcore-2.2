@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterContentInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from './models/user';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,17 @@ export class AppComponent implements OnInit, AfterContentInit {
   title = 'DatingApp';
   jwtHelper = new JwtHelperService();
 
-  constructor(private elementRef: ElementRef, private authService: AuthService) {
-
-  }
+  constructor(
+      private elementRef: ElementRef,
+      private authService: AuthService,
+      private themeService: ThemeService
+      ) {
+        this.themeService.updateTheme.subscribe(
+          () => {
+            this.changeThemeMode();
+          }
+        );
+      }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -40,10 +49,11 @@ export class AppComponent implements OnInit, AfterContentInit {
     }
 
     const user: User = JSON.parse(localStorage.getItem('user'));
-    if (user && user.theme != null) {
+    if (user && user.theme !== null && user.theme !== 'default') {
       const routerOutlet = this.elementRef.nativeElement.querySelector('router-outlet');
       // tslint:disable-next-line:max-line-length
       routerOutlet.insertAdjacentHTML('beforeend', `<link id="stylesheet" rel="stylesheet" type="text/css" href="./assets/stylesheets/${user.theme}/bootstrap.min.css">`);
     }
   }
+
 }

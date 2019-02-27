@@ -5,6 +5,8 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ThemeService } from 'src/app/services/theme.service';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-member-edit',
@@ -16,11 +18,11 @@ export class MemberEditComponent implements OnInit {
   user: User;
   photoUrl: string;
   // tslint:disable-next-line:max-line-length
-  themes = ['cerulean', 'cosmo', 'journal', 'litera', 'lumen', 'materia', 'minty', 'pulse', 'sandstone', 'simplex', 'sketchy', 'spacelab', 'united', 'yeti'];
+  themes = ['default', 'cerulean', 'cosmo', 'journal', 'litera', 'lumen', 'materia', 'minty', 'pulse', 'sandstone', 'simplex', 'sketchy', 'spacelab', 'united', 'yeti'];
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
-    if (this.editForm.dirty) {
+    if (this.editForm.touched) {
       $event.returnValue = true;
     }
   }
@@ -29,7 +31,8 @@ export class MemberEditComponent implements OnInit {
     private route: ActivatedRoute,
     private alertify: AlertifyService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit() {
@@ -42,7 +45,11 @@ export class MemberEditComponent implements OnInit {
   updateUser() {
     this.userService.updateUser(this.authService.decodedToken['nameid'], this.user).subscribe(next => {
       this.alertify.success('Profile update successfully!');
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      currentUser.theme = this.user.theme;
+      localStorage.setItem('user', JSON.stringify(currentUser));
       this.editForm.reset(this.user);
+      this.themeService.invokeThemeChange();
     }, error => {
       this.alertify.error(error);
     });
